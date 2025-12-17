@@ -5,13 +5,7 @@ export default function EmailField({ checkEmail }) {
     const [inputValue, setInputValue] = useState("")
     const [valid, setValid] = useState(false)
 
-    const handleChange = (e) => {
-        setInputValue(e.target.value)
 
-        const isValid = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(inputValue)
-        setValid(isValid)
-        checkEmail(isValid)
-    }
 
     return (
         <>
@@ -21,7 +15,12 @@ export default function EmailField({ checkEmail }) {
                 id="email"
                 name="email"
                 value={inputValue}
-                onChange={handleChange}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyUp={(e) => {
+                    const isValid = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(e.target.value)
+                    setValid(isValid)
+                    checkEmail(isValid)
+                }}
             />
             {valid ? <p>Adresse email valide</p> : <p>Adresse email invalide</p>}
         </>
