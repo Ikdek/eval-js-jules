@@ -3,16 +3,24 @@ import { useNavigate } from "react-router"
 import { Star } from "lucide-react"
 import { useEffect, useState } from "react"
 export default function Card({ title, image, id, rating }) {
-    const favoris = JSON.parse(localStorage.getItem("favoris") || "[]")
     const navigate = useNavigate()
-    const [isFavorite, setIsFavorite] = useState(favoris.includes(id))
+    const [isFavorite, setIsFavorite] = useState(() => {
+        const favoris = JSON.parse(localStorage.getItem("favoris") || "[]")
+        return favoris.includes(id)
+    })
+
     const handleAddFavorite = () => {
-        const newFavorites = [favoris, id]
-        localStorage.setItem("favoris", JSON.stringify(newFavorites))
+        const currentFavoris = JSON.parse(localStorage.getItem("favoris") || "[]")
+        if (!currentFavoris.includes(id)) {
+            const newFavorites = [...currentFavoris, id]
+            localStorage.setItem("favoris", JSON.stringify(newFavorites))
+        }
         setIsFavorite(true)
     }
+
     const handleRemoveFavorite = () => {
-        const newFavorites = favoris.filter((favorite) => favorite !== id)
+        const currentFavoris = JSON.parse(localStorage.getItem("favoris") || "[]")
+        const newFavorites = currentFavoris.filter((favorite) => favorite !== id)
         localStorage.setItem("favoris", JSON.stringify(newFavorites))
         setIsFavorite(false)
     }
