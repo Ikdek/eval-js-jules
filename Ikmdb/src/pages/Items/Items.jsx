@@ -4,6 +4,7 @@ import { useParams } from "react-router"
 import { useNavigate } from "react-router"
 import { ArrowLeft, Star } from "lucide-react"
 import "./Items.css"
+import Form from "../../components/Form"
 export default function Items() {
     const id = useParams().id
     const [item, setItem] = useState([])
@@ -30,7 +31,7 @@ export default function Items() {
             <p className="item-reviews">Nombre de critiques : {item.reviews_count}</p>
             <p className="item-rating">Note moyenne : {item.rating} <Star size={20} color="yellow" /></p>
             <p className="item-playtime">Nombre d'heures de jeu moyen : {item.playtime}</p>
-
+            <Form />
         </div>
     )
 }
