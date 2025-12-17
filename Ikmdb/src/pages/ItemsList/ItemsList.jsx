@@ -30,7 +30,7 @@ export default function ItemsList() {
 
             <div className="card-container">
                 {items.map(item => (
-                    <Card key={item.id} title={item.name} image={item.background_image} />
+                    <Card key={item.id} title={item.name} image={item.background_image} id={item.id} rating={item.rating} />
                 ))}
             </div>
             <Pagination pages={pages} setPages={setPages} />
